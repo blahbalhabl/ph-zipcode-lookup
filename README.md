@@ -59,7 +59,7 @@ console.log(`Zipcode for Manila: ${zipcode}`);
 
 ## Acknowledgements
 
-This package was inspired by the zipcodes-ph npm package. Many thanks to the original developer for their work.
+This package was inspired by the [zipcodes-ph](https://www.npmjs.com/package/zipcodes-ph) npm package. Many thanks to the original developer for their work.
 
 ## License
 
@@ -68,3 +68,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Author
 
 Mark Leigh David
+
+## GitHub Repository
+
+You can find the GitHub repository for this project [here](https://github.com/blahbalhabl/ph-zipcodes-lookup).
