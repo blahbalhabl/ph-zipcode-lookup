@@ -3,12 +3,12 @@ type Zipcodes = {
 };
 const zipcodes: Zipcodes = require("./zipcodes.json");
 
-export const findLocation = (zipcode: string): string | null => {
+const findLocation = (zipcode: string): string | null => {
   const value = zipcodes[zipcode];
   return typeof value === "string" ? value : null;
 };
 
-export const findZipcode = (location: string): string | null => {
+const findZipcode = (location: string): string | null => {
   const commonWordsRegex = /\b(city|of)\b/gi;
   const normalizedLocation = location
     .toLowerCase()
@@ -75,4 +75,9 @@ export const findZipcode = (location: string): string | null => {
       return false;
     }) || null
   );
+};
+
+module.exports = {
+  findLocation,
+  findZipcode,
 };
