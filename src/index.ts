@@ -1,10 +1,10 @@
 type Zipcodes = {
   [key: string]: string | string[];
 };
-const zipcodes: Zipcodes = require("./zipcodes.json");
+const zipcodesData: Zipcodes = require("./zipcodes.json");
 
 const findLocation = (zipcode: string): string | null => {
-  const value = zipcodes[zipcode];
+  const value = zipcodesData[zipcode];
   return typeof value === "string" ? value : null;
 };
 
@@ -16,9 +16,9 @@ const findZipcode = (location: string): string | null => {
     .trim();
 
   return (
-    Object.keys(zipcodes).find((zipcode) => {
+    Object.keys(zipcodesData).find((zipcode) => {
       // get the value of the zipcode key.
-      const value = zipcodes[zipcode];
+      const value = zipcodesData[zipcode];
       // check if the value is an array of strings
       // if it is, check if the location matches any of the strings in the array
       if (Array.isArray(value)) {
@@ -77,7 +77,7 @@ const findZipcode = (location: string): string | null => {
   );
 };
 
-module.exports = {
+export const zipcodes = {
   findLocation,
   findZipcode,
 };

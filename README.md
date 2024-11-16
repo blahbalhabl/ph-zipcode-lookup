@@ -32,7 +32,7 @@ npm install ph-zipcode-lookup
 
 ```jsx
 import React from "react";
-import zipcodes from "ph-zipcode-lookup";
+import { zipcodes } from "ph-zipcode-lookup";
 
 function App() {
   const location = zipcodes.findLocation("1000");
@@ -52,7 +52,7 @@ export default App;
 ### In a Node.js app
 
 ```js
-const zipcodes = require("ph-zipcode-lookup");
+const { zipcodes } = require("ph-zipcode-lookup");
 
 const location = zipcodes.findLocation("1000");
 const zipcode = zipcodes.findZipcode("Manila");
