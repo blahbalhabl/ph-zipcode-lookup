@@ -1,5 +1,23 @@
 src/
-.babelrc
-.gitignore
-index.test.js
+
+# Test files
 __tests__/
+index.test.js
+
+# Build config files
+tsup.config.ts
+tsconfig.json
+
+# Environment variables
+.env
+.env.local
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE specific files
+.vscode/
+.idea/
+
+.gitignore

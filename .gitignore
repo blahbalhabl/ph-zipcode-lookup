@@ -21,3 +21,7 @@ Thumbs.db
 # IDE specific files
 .vscode/
 .idea/
+
+# Environment variables
+.env
+.env.local

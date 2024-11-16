@@ -1,4 +1,4 @@
-import zipcodes from "../src/index";
+const zipcodes = require("../index");
 
 describe("zipcodes library", () => {
   test("findLocation() should return the correct location for a given zipcode", () => {

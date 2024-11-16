@@ -1,19 +1,19 @@
-import zipcodesData from './zipcodes.json' with { type: 'json' };
-
-const zipcodes: Zipcodes = zipcodesData;
-
 type Zipcodes = {
   [key: string]: string | string[];
 };
+const zipcodes: Zipcodes = require("./zipcodes.json");
 
-const findLocation = (zipcode: string): string | null => {
+export const findLocation = (zipcode: string): string | null => {
   const value = zipcodes[zipcode];
-  return typeof value === 'string' ? value : null;
+  return typeof value === "string" ? value : null;
 };
 
-const findZipcode = (location: string): string | null => {
+export const findZipcode = (location: string): string | null => {
   const commonWordsRegex = /\b(city|of)\b/gi;
-  const normalizedLocation = location.toLowerCase();
+  const normalizedLocation = location
+    .toLowerCase()
+    .replace(commonWordsRegex, "")
+    .trim();
 
   return (
     Object.keys(zipcodes).find((zipcode) => {
@@ -23,53 +23,56 @@ const findZipcode = (location: string): string | null => {
       // if it is, check if the location matches any of the strings in the array
       if (Array.isArray(value)) {
         const match = value.some((loc) => {
-          const normalizedLoc = loc.toLowerCase();
+          const normalizedLoc = loc
+            .toLowerCase()
+            .replace(commonWordsRegex, "")
+            .trim();
           return (
             normalizedLoc.includes(normalizedLocation) ||
             normalizedLocation.includes(normalizedLoc)
           );
         });
-        return !!match;
+        if (match) {
+          return true;
+        }
       }
-      // check if the value is a string and return null if it is not.
-      if (typeof value !== 'string') {
+      // check if the value is a string and return false if it is not.
+      if (typeof value !== "string") {
         return false;
-      };
+      }
       // if the value is a string, normalize it to lowercase for comparison
-      const normalizedValue = value.toLowerCase();
+      const normalizedValue = value
+        .toLowerCase()
+        .replace(commonWordsRegex, "")
+        .trim();
       // return the zipcode if the location matches exactly
       if (normalizedValue === normalizedLocation) {
         return true;
       }
 
-      // Remove common words and check if the concatenated string matches the location
-      const cleanedValue = normalizedValue.replace(commonWordsRegex, '').replace(/\s+/g, ' ').trim();
-      const cleanedLocation = normalizedLocation.replace(commonWordsRegex, '').replace(/\s+/g, ' ').trim();
-
-      if (cleanedValue.includes(cleanedLocation) || cleanedLocation.includes(cleanedValue)) {
+      if (
+        normalizedValue.includes(normalizedLocation) ||
+        normalizedLocation.includes(normalizedValue)
+      ) {
         return true;
       }
 
       // Split the words if its more than one word and check if the reversed order of the words matches the location
-      const words = normalizedValue.split(' ');
+      const words = normalizedValue.split(" ");
       if (words.length > 1) {
-        const reversedWords = words.reverse().join(' ');
+        const reversedWords = words.reverse().join(" ");
         if (reversedWords === normalizedLocation) {
           return true;
         }
-      };
+      }
 
       // If the words have special characters, remove them and check if the words match the location
-      const cleanedWords = words.map((word) => word.replace(/\W/g, ''));
-      if (cleanedWords.join('') === normalizedLocation.replace(/\W/g, '')) {
+      const cleanedWords = words.map((word) => word.replace(/\W/g, ""));
+      if (cleanedWords.join("") === normalizedLocation.replace(/\W/g, "")) {
         return true;
       }
-      
+
+      return false;
     }) || null
   );
-};
-
-export default {
-  findLocation,
-  findZipcode,
 };
